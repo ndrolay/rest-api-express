@@ -46,8 +46,6 @@ Run the Express Server
 ```
 
 ## To-Do
- - Add Media Downloader
- - Add More Feature
- - More refactoring
+ - Add Database use mySQL
  
 ---
