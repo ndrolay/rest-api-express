@@ -10,8 +10,12 @@
     "type": "git",
     "url": "git+https://github.com/ArugaZ/rest-api-express.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "rest",
+    "api",
+    "express"
+  ],
+  "author": "ArugaZ",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ArugaZ/rest-api-express/issues"
