@@ -45,21 +45,21 @@ const getHashedPassword = (password) => {
 }
 
 app.post('/user/register', async(req, res) => {
-	if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) return res.render('register', { message: "Please select the captcha!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+	if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) return res.render('register', { message: "Please select the captcha!", messageClass: 'red' })
 	var secretKey = process.env.google_ReCaptcha
 	var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
 	const fetchCaptha = await fetch(verificationUrl);
 	const resCaptha = await fetchCaptha.json()
-	if (!resCaptha.success || resCaptha.success == undefined) return res.render('register', { message: "Invalid in  recaptcha!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+	if (!resCaptha.success || resCaptha.success == undefined) return res.render('register', { message: "Invalid in  recaptcha!", messageClass: 'red' })
     const { email, firstName, lastName, userName, password, confirmPassword } = req.body
-	if (password !== confirmPassword) return res.render('register', { message: "Password doesnt match!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+	if (password !== confirmPassword) return res.render('register', { message: "Password doesnt match!", messageClass: 'red' })
     const hashedPassword = getHashedPassword(password);
     apiSQL.query("SELECT * FROM `restkey` WHERE `email` = ?", email, function(err, result) {
-        if (err) return res.render('register', { message: "Error on database!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
-        if (result.length != 0) return res.render('register', { message: "Email already exists!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+        if (err) return res.render('register', { message: "Error on database!", messageClass: 'red' })
+        if (result.length != 0) return res.render('register', { message: "Email already exists!", messageClass: 'red' })
         apiSQL.query("SELECT * FROM `restkey` WHERE `username` = ?", userName, function(err, result) {
-            if (err) return res.render('register', { message: "Error on database!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
-            if (result.length != 0) return res.render('register', { message: "Username already exists!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha})
+            if (err) return res.render('register', { message: "Error on database!", messageClass: 'red' })
+            if (result.length != 0) return res.render('register', { message: "Username already exists!", messageClass: 'red'})
 			const TokenNya = crypto.randomBytes(35).toString('hex')
             transporter.sendMail({
                 from: `"ArugaZ-Restful API" <${process.env.mail_FROM}>`, // sender address
@@ -77,9 +77,9 @@ app.post('/user/register', async(req, res) => {
                 <p>Regards, ArugaZ</p>
                 `, // html body
             }, (err) => {
-                if (err) return res.render('register', { message: "Error on mail sender!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+                if (err) return res.render('register', { message: "Error on mail sender!", messageClass: 'red' })
                 apiSQL.query("INSERT INTO `restkey` SET?", { updateAt: mysqlTimestamps, createdAt: mysqlTimestamps, firstname: firstName, lastname: lastName, username: userName, email: email, password: hashedPassword, secretToken: TokenNya, apiKey: 'arugaz'+ crypto.randomBytes(Math.floor(Math.random() * 2) +5).toString('hex'), recovery: 'success', active: 'false' }, function(err, result) {
-                    if (err) return res.render('register', { message: "Error on database!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+                    if (err) return res.render('register', { message: "Error on database!", messageClass: 'red' })
                     res.redirect('/user/login?q=RegistrationComplete')
                 })
             })
@@ -109,15 +109,15 @@ app.post('/user/login', async(req, res) => {
 })
 app.post('/user/recovery', async(req, res) => {
 	if (req.body.email) {
-		if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) return res.render('recovery', { message: "Please select the captcha!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+		if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) return res.render('recovery', { message: "Please select the captcha!", messageClass: 'red' })
 		var secretKey = process.env.google_ReCaptcha
 		var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
 		const fetchCaptha = await fetch(verificationUrl);
 		const resCaptha = await fetchCaptha.json()
-		if (!resCaptha.success || resCaptha.success == undefined) return res.render('recovery', { message: "Invalid in  recaptcha!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+		if (!resCaptha.success || resCaptha.success == undefined) return res.render('recovery', { message: "Invalid in  recaptcha!", messageClass: 'red' })
 		apiSQL.query("SELECT * FROM `restkey` WHERE `email` = ?", req.body.email, function(err, result) {
-			if (err) return res.render('recovery', { message: "Error on database!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
-			if (result.length == 0) return res.render('recovery', { message: "Email not registered!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+			if (err) return res.render('recovery', { message: "Error on database!", messageClass: 'red' })
+			if (result.length == 0) return res.render('recovery', { message: "Email not registered!", messageClass: 'red' })
 			const TokenNya = crypto.randomBytes(35).toString('hex')
 			transporter.sendMail({
 				from: `"ArugaZ-Restful API" <${process.env.mail_FROM}>`, // sender address
@@ -131,10 +131,10 @@ app.post('/user/recovery', async(req, res) => {
 				<p>Regards, ArugaZ</p>
 				`, // html body
 			}, (err, info) => {
-				if (err) return res.render('recovery', { message: "Error on mail sender!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+				if (err) return res.render('recovery', { message: "Error on mail sender!", messageClass: 'red' })
 				apiSQL.query("UPDATE `restkey` SET ? WHERE `email` = ?", [{recovery: TokenNya}, req.body.email], function(err, result) {
-					if (err) return res.render('recovery', { message: "Error on database!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
-					res.render('recovery', { message: "Please check your email to reset password", messageClass: 'green', gCaptcha: process.env.google_htmlCaptcha })
+					if (err) return res.render('recovery', { message: "Error on database!", messageClass: 'red' })
+					res.render('recovery', { message: "Please check your email to reset password", messageClass: 'green' })
 				})
 			})
 		})
@@ -179,9 +179,7 @@ app.get('/', (req, res) => {
 });
 app.get('/user/register', (req, res) => {
     if (req.user) return res.redirect('/')
-    res.render('register', {
-		gCaptcha: process.env.google_htmlCaptcha
-	})
+    res.render('register')
 })
 app.get('/user/login', (req, res) => {
     if (req.user) return res.redirect('/')
@@ -203,14 +201,12 @@ app.get('/user/recovery', (req, res) => {
     if (req.user) return res.redirect('/')
     if (req.query.q) {
         apiSQL.query("SELECT * FROM `restkey` WHERE `recovery` = ?", req.query.q, function(err, result) {
-            if (err) return res.render('recovery', { message: "Error on database!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
-			if (result.length == 0) return res.render('recovery', { message: "Invalid Secret Token!", messageClass: 'red', gCaptcha: process.env.google_htmlCaptcha })
+            if (err) return res.render('recovery', { message: "Error on database!", messageClass: 'red' })
+			if (result.length == 0) return res.render('recovery', { message: "Invalid Secret Token!", messageClass: 'red' })
 			res.render('recovery2')
         })
     } else {
-        res.render('recovery', {
-			gCaptcha: process.env.google_htmlCaptcha
-		})
+        res.render('recovery')
     }
 })
 app.post('/user/logout', (req, res) => {
