@@ -8,9 +8,6 @@
 <a href="https://github.com/ArugaZ"><img title="Author" src="https://img.shields.io/badge/AUTHOR-ARUGAZ-orange.svg?style=for-the-badge&logo=github"></a>
 </p>
 <p align="center">
-<a href="https://www.codefactor.io/repository/github/arugaz/rest-api-express"><img src="https://www.codefactor.io/repository/github/arugaz/rest-api-express/badge" alt="CodeFactor" /></a>
-</p>
-<p align="center">
 <a href="https://github.com/arugaz/followers"><img title="Followers" src="https://img.shields.io/github/followers/arugaz?color=blue&style=flat-square"></a>
 <a href="https://github.com/arugaz/rest-api-express/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/arugaz/rest-api-express?color=red&style=flat-square"></a>
 <a href="https://github.com/arugaz/rest-api-express/network/members"><img title="Forks" src="https://img.shields.io/github/forks/arugaz/rest-api-express?color=red&style=flat-square"></a>
@@ -19,10 +16,22 @@
 </p>
 <div align="center">
 
-Help ⭐️ :D
+Help me to ⭐️ this repo, thanks.
+<p align="center"><a href="http://example.restfulapi.my.id/">Example project</a>.</p>
 </div>
 
 ## Getting Started
+
+### Settings environment variable
+Copy .env_sample to .env file
+
+```bash
+> if you have problem please ask on the issue
+> feel free to build this project together
+```
+
+## HTML template
+If you want to edit the template please check here: https://github.com/gurayyarar/AdminBSBMaterialDesign
 
 ### Install
 Clone this project

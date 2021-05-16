@@ -1,0 +1,67 @@
+<body class="fp-page">
+    <div class="fp-box">
+        <div class="logo">
+            <a href="javascript:void(0);">Aruga<b>Z</b></a>
+            <small>ArugaZ - Restful API</small>
+        </div>
+        <div class="card">
+            <div class="body">
+                <form id="forgot_password" method="POST">
+                    <div class="msg">
+                        Enter a new password that is easy for you to remember.
+                    </div>
+					{{#if message}}
+					<div class="msg col-{{messageClass}}">{{message}}</div>
+					{{/if}}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" name="password" minlength="6" placeholder="Password" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" name="confirmPassword" minlength="6" placeholder="Confirm Password" onkeyup="onChange()" onChange="onChange()" required>
+                        </div>
+                    </div>
+					<div id="PeSaNFalse" class="msg col-red"></div>
+                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">RESET MY PASSWORD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery Core Js -->
+    <script src="/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/plugins/node-waves/waves.js"></script>
+
+    <!-- Validation Plugin Js -->
+    <script src="/plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/js/admin.js"></script>
+    <script src="/js/pages/examples/forgot-password.js"></script>
+	
+	<!-- Check Password -->
+	<script>
+	function onChange() {
+	  const password = document.querySelector('input[name=password]');
+	  const confirm = document.querySelector('input[name=confirmPassword]');
+	  if (confirm.value === password.value) {
+		document.getElementById('PeSaNFalse').innerHTML = '';
+	  } else {
+		document.getElementById('PeSaNFalse').innerHTML = 'Passwords do not match';
+	  }
+	}
+	</script>
+</body>
