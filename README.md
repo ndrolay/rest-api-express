@@ -33,9 +33,6 @@ upload file helper\UserAuth.sql on your mysql database
 > feel free to build this project together
 ```
 
-## HTML template
-If you want to edit the template please check here: https://github.com/gurayyarar/AdminBSBMaterialDesign
-
 ### Install
 Clone this project
 
@@ -56,6 +53,9 @@ Run the Express Server
 ```bash
 > npm start
 ```
+
+### HTML template
+If you want to edit the template please check here: https://github.com/gurayyarar/AdminBSBMaterialDesign
 
 ## To-Do
  - Add more features
