@@ -25,8 +25,11 @@ Help me to ⭐️ this repo, thanks.
 ### Settings environment variable
 Copy .env_sample to .env file
 
+### mySQL database
+upload file helper\UserAuth.sql on your mysql database
+
 ```bash
-> if you have problem please ask on the issue
+> you have problem please ask on the issue
 > feel free to build this project together
 ```
 
@@ -55,6 +58,6 @@ Run the Express Server
 ```
 
 ## To-Do
- - Add Database use mySQL
+ - Add more features
  
 ---
