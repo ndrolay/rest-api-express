@@ -172,7 +172,9 @@ app.get('/', (req, res) => {
             apikey: req.user.apiKey
         })
     } else {
-        res.render('rumah')
+        res.render('rumah', {
+            name: 'Guest'
+        })
     }
 });
 app.get('/user/register', (req, res) => {
