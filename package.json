@@ -17,7 +17,7 @@
     "express"
   ],
   "author": "ArugaZ",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/ArugaZ/rest-api-express/issues"
   },
