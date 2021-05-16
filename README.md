@@ -28,6 +28,9 @@ Copy .env_sample to .env file
 ### mySQL database
 upload file helper\UserAuth.sql on your mysql database
 
+### Google Recaptcha
+open file in views/recovery.hbs and views/register.hbs and change "your google captcha html" with ur code
+
 ```bash
 > you have problem please ask on the issue
 > feel free to build this project together
